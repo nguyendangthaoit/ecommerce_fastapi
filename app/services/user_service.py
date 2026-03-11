@@ -1,12 +1,13 @@
-
 from app.repositories.user_repository import UserRepository
+from app.utils.hashing import hash_password
+
 
 class UserService:
 
     @staticmethod
-    def get_users():
-        return UserRepository.get_all()
+    def register(user):
+        hashed = hash_password(user.password)
 
-    @staticmethod
-    def create_user(user):
-        return UserRepository.create(user)
+        user_data = {"email": user.email, "hashed_password": hashed}
+
+        return UserRepository.create(user_data)
