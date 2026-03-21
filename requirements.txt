@@ -3,7 +3,14 @@ fastapi
 uvicorn
 sqlalchemy
 pydantic
+pydantic-settings
 python-jose
 passlib[bcrypt]
 pytest
 bcrypt==4.0.1
+celery
+redis
+pyodbc
+fastapi-mail
+python-dotenv
+email-validator

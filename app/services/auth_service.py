@@ -1,6 +1,7 @@
 from app.utils.hashing import verify_password
 from app.core.security import create_access_token
 from app.repositories.user_repository import UserRepository
+from app.core.logger import logger
 
 
 class AuthService:
@@ -16,5 +17,6 @@ class AuthService:
             return None
 
         token = create_access_token({"user_id": user.id})
+        logger.info("loging successfully")
 
         return {"access_token": token}
