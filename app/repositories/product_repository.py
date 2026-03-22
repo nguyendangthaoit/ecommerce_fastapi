@@ -1,19 +1,20 @@
-
 from app.models.product_model import Product
-from app.core.database import SessionLocal
+from sqlalchemy.orm import Session
+
 
 class ProductRepository:
+    def __init__(self, db: Session):
+        self.db = db  # Giữ session ở cấp độ instance
 
-    @staticmethod
-    def get_all():
-        db = SessionLocal()
-        return db.query(Product).all()
+    def get_all(self):
+        return self.db.query(Product).all()
 
-    @staticmethod
-    def create(product_data):
-        db = SessionLocal()
+    def create(self, product_data):
         product = Product(**product_data.dict())
-        db.add(product)
-        db.commit()
-        db.refresh(product)
+        self.db.add(product)
+        self.db.commit()
+        self.db.refresh(product)
         return product
+
+    def get_by_id(self, pro_id):
+        return self.db.query(Product).filter(Product.id == pro_id).first()

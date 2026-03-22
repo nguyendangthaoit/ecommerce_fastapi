@@ -2,11 +2,14 @@ from app.repositories.product_repository import ProductRepository
 
 
 class ProductService:
+    def __init__(self, repo: ProductRepository):
+        self.repo = repo  # Service dùng Repo để làm việc với DB
 
-    @staticmethod
-    def get_products():
-        return ProductRepository.get_all()
+    def get_products(self):
+        return self.repo.get_all()
 
-    @staticmethod
-    def create_product(product):
-        return ProductRepository.create(product)
+    def create_product(self, product):
+        return self.repo.create(product)
+
+    def get_product_by_id(self, pro_id):
+        return self.repo.get_by_id(pro_id)
